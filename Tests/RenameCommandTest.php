@@ -45,8 +45,8 @@ class RenameCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecuteDry()
     {
         $this->commandTester->execute(array(
-            'dir'  => __DIR__ . DIRECTORY_SEPARATOR . 'test',
-            'dest'  => __DIR__ . DIRECTORY_SEPARATOR . 'test',
+            'dir'  => 'Tests/test',
+            'dest'  => 'Tests/test',
             '--dry-run' => true,
         ));
         $output = $this->commandTester->getDisplay();
@@ -54,7 +54,7 @@ class RenameCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("20031214_120144_Canon-PowerShot-S40.jpg does not contain valid exif data. Skipping", $output);
         $this->assertContains("fileWithoutExif.jpg does not contain valid exif data. Skipping", $output);
         $this->assertContains("20031214_120144_Canon-PowerShot-S40_1.jpg does not contain valid exif data. Skipping", $output);
-        $this->assertContains("testFile.jpg has been copied to 20031214_120144_Canon-PowerShot-S40_2.jpg", $output);
+        $this->assertContains("testFile.jpg has been copied to Tests/test/20031214_120144_Canon-PowerShot-S40_2.jpg", $output);
         $this->assertContains("1 file updated.", $output);
 
         $this->assertNotContains("anotherFile.txt", $output);
@@ -63,8 +63,8 @@ class RenameCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecute()
     {
         $this->commandTester->execute(array(
-            'dir'  => __DIR__ . DIRECTORY_SEPARATOR . 'test',
-            'dest'  => __DIR__ . DIRECTORY_SEPARATOR . 'output',
+            'dir'  => 'Tests/test',
+            'dest'  => 'Tests/output',
             '--dry-run' => false,
         ));
 

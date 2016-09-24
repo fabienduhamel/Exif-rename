@@ -68,7 +68,11 @@ class RenameCommand extends Command
             $newFileName = $this->rename($file, $dest, $dryRun);
 
             $output->writeln(
-                sprintf("<info>%s</info> has been copied to <info>%s</info>", $file->getFilename(), $newFileName)
+                sprintf(
+                    "<info>%s</info> has been copied to <info>%s</info>",
+                    $this->generateFullPathName($dir, $file->getFilename()),
+                    $this->generateFullPathName($dest, $newFileName)
+                )
             );
         }
 
@@ -91,5 +95,18 @@ class RenameCommand extends Command
         }
 
         return $newFileName;
+    }
+
+    private function generateFullPathName($dir, $fileName)
+    {
+        if ($this->endsWith($dir, DIRECTORY_SEPARATOR)) {
+            return $dir . $fileName;
+        }
+
+        return $dir . DIRECTORY_SEPARATOR . $fileName;
+    }
+
+    private function endsWith($haystack, $needle) {
+        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
     }
 }
