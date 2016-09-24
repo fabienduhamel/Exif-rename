@@ -48,7 +48,7 @@ class RenameCommand extends Command
             $dryRun = true;
         }
 
-        $finder->files()->name('/(.jpg|.png)$/i')->in($dir)->depth("< 1");
+        $finder->files()->name('/(.jpg|.png|.dng)$/i')->in($dir)->depth("< 1");
 
         $updatedFilesCount = 0;
 
