@@ -58,7 +58,7 @@ class RenameCommand extends Command
             } catch (\RuntimeException $e) {
                 $file = new File($fileName);
                 $output->writeln(
-                    sprintf("<comment>'%s' does not contain valid exif data. Skipping</comment>", $file->getFilename())
+                    sprintf("<comment>%s does not contain valid exif data. Skipping</comment>", $file->getFilename())
                 );
                 continue;
             }
@@ -68,7 +68,7 @@ class RenameCommand extends Command
             $newFileName = $this->rename($file, $dest, $dryRun);
 
             $output->writeln(
-                sprintf("'%s' has been copied to '%s'", $file->getFilename(), $newFileName)
+                sprintf("<info>%s</info> has been copied to <info>%s</info>", $file->getFilename(), $newFileName)
             );
         }
 

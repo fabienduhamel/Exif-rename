@@ -51,10 +51,10 @@ class RenameCommandTest extends \PHPUnit_Framework_TestCase
         ));
         $output = $this->commandTester->getDisplay();
 
-        $this->assertContains("'20031214_120144_Canon-PowerShot-S40.jpg' does not contain valid exif data. Skipping", $output);
-        $this->assertContains("'fileWithoutExif.jpg' does not contain valid exif data. Skipping", $output);
-        $this->assertContains("'20031214_120144_Canon-PowerShot-S40_1.jpg' does not contain valid exif data. Skipping", $output);
-        $this->assertContains("'testFile.jpg' has been copied to '20031214_120144_Canon-PowerShot-S40_2.jpg'", $output);
+        $this->assertContains("20031214_120144_Canon-PowerShot-S40.jpg does not contain valid exif data. Skipping", $output);
+        $this->assertContains("fileWithoutExif.jpg does not contain valid exif data. Skipping", $output);
+        $this->assertContains("20031214_120144_Canon-PowerShot-S40_1.jpg does not contain valid exif data. Skipping", $output);
+        $this->assertContains("testFile.jpg has been copied to 20031214_120144_Canon-PowerShot-S40_2.jpg", $output);
         $this->assertContains("1 file updated.", $output);
 
         $this->assertNotContains("anotherFile.txt", $output);
