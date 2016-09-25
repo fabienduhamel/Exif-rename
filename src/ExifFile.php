@@ -21,12 +21,20 @@ class ExifFile extends File
 
     public function getModelString()
     {
-        return str_replace(' ', '-', $this->data['Model']);
+        $model = $this->data['Model'];
+
+        // Trim at first slash if exists.
+        if ($indexOfSlash = strpos($model, '/')) {
+            $model = substr($model, 0, $indexOfSlash);
+        }
+
+        $model = trim($model);
+
+        return str_replace(' ', '-', $model);
     }
 
     public function getShotDate()
     {
         return \DateTime::createFromFormat('Y:m:d H:i:s', $this->data['DateTimeOriginal']);
     }
-
 }

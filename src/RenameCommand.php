@@ -117,7 +117,7 @@ class RenameCommand extends Command
 
     private function copy($fullPathFile, $newFullPathFile)
     {
-        $process = new Process("rsync -av " . $fullPathFile . " " . $newFullPathFile);
+        $process = new Process('rsync -av "' . $fullPathFile . '" "' . $newFullPathFile . '"');
         $process->mustRun();
     }
 }
