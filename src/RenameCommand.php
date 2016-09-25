@@ -10,9 +10,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Process\Process;
 
 class RenameCommand extends Command
 {
+    /**
+     * @var Filesystem
+     */
+    private $fs;
+
     /**
      * @var FileNameResolver
      */
@@ -22,6 +28,7 @@ class RenameCommand extends Command
     {
         parent::__construct($name);
         $this->fileNameResolver = new FileNameResolver();
+        $this->fs = new Filesystem();
     }
 
     protected function configure()
@@ -84,14 +91,12 @@ class RenameCommand extends Command
         $newFileName = $this->fileNameResolver->resolve($file, $dest);
 
         if (!$dryRun) {
-            $fs = new Filesystem();
-
             $fullPathFile = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFilename();
             $newFullPathFile = $dest . DIRECTORY_SEPARATOR . $newFileName;
 
-            $fs->mkdir($dest, 0755);
+            $this->fs->mkdir($dest, 0755);
 
-            $fs->copy($fullPathFile, $newFullPathFile);
+            $this->copy($fullPathFile, $newFullPathFile);
         }
 
         return $newFileName;
@@ -108,5 +113,11 @@ class RenameCommand extends Command
 
     private function endsWith($haystack, $needle) {
         return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
+    }
+
+    private function copy($fullPathFile, $newFullPathFile)
+    {
+        $process = new Process("rsync -av " . $fullPathFile . " " . $newFullPathFile);
+        $process->mustRun();
     }
 }
