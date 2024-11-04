@@ -1,6 +1,8 @@
-# Exif tool
-
 ## Exif rename
+
+⚠️ **Deprecated**: This project will not be maintained anymore as `exiftool '-FileName<${DateTimeOriginal}_${Model;s/ /-/g}%-c.%e' -d "%Y%m%d_%H%M%S" <file>` does it.
+
+---
 
 Renames all jpg/png files into a directory to a pattern based on exif data:
 
